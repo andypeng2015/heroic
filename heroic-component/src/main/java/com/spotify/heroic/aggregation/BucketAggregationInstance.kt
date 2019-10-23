@@ -69,8 +69,7 @@ abstract class BucketAggregationInstance<B : Bucket>(
             key: Map<String, String>, s: Set<Series>, values: List<Spread>
         ) {
             series.add(s)
-            feed(MetricType.SPREAD, values,
-                { bucket, m -> bucket.updateSpread(key, m as Spread) })
+            feed(MetricType.SPREAD, values, { bucket, m -> bucket.updateSpread(key, m as Spread) })
         }
 
         override fun updateGroup(
@@ -91,7 +90,9 @@ abstract class BucketAggregationInstance<B : Bucket>(
         }
 
         private fun <T : Metric> feed(
-            type: MetricType, values: List<T>, consumer: (B : Bucket, T : Metric) -> Unit
+            type: MetricType,
+            values: List<T>,
+            consumer: (B : Bucket, T : Metric) -> Unit
         ) {
             if (!input.contains(type)) {
                 return
@@ -135,10 +136,10 @@ abstract class BucketAggregationInstance<B : Bucket>(
         }
     }
 
-    override fun estimate(original: DateRange): Long {
+    override fun estimate(range: DateRange): Long {
         return if (size == 0L) {
             0
-        } else original.rounded(size).diff() / size
+        } else range.rounded(size).diff() / size
 
     }
 

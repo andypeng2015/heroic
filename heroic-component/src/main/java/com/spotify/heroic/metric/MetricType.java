@@ -60,8 +60,8 @@ public enum MetricType {
         return identifier;
     }
 
-    static final Map<String, MetricType> mapping = ImmutableMap.copyOf(Arrays
-        .stream(MetricType.values())
+    static final Map<String, MetricType> mapping = ImmutableMap.copyOf(
+        Arrays.stream(MetricType.values())
         .collect(Collectors.toMap(MetricType::identifier, Function.identity())));
 
     public static Optional<MetricType> fromIdentifier(String identifier) {
